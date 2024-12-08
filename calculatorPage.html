@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="/style/calculatorPage.css">
+<body class="calculatorPage">
+    <nav id="homeNav">
+        <ul class="home-navButttons">
+            <li><a class="box" href="aboutPage.html">Home</a></s></li>
+            <li><a class="box" href="calculatorPage.html">Calculator</a></s></li>
+            <li><a class="box" href="developer.html">Developer</a></s></li>
+        </ul>
+    </nav>
+    <div class="hero-calculator" id="home">
+        <div class="container-text">
+            <h1 class="page-header">Convert Your Numbers</h1>
+            <p class="sub-header-text">Quickly convert between Binary, Decimal, Octal, and Hexadecimal systems.</p>
+        </div>
+        <div class="converter">
+            <div class="number-input-container">
+                <label id="number-input" for="inputNumber">Enter a number:</label>
+                <input class="input-user" type="text" id="inputNumber" placeholder="Enter a number">
+            </div>
+
+            <div class="results" id="results">
+                <h3 id="converter-results">Results:</h3>
+                <p id="input-field-calc">Binary: <span id="binaryResult">N/A</span></p>
+                <p id="input-field-calc">Decimal: <span id="decimalResult">N/A</span></p>
+                <p id="input-field-calc">Octal: <span id="octalResult">N/A</span></p>
+                <p id="input-field-calc">Hexadecimal: <span id="hexadecimalResult">N/A</span></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const inputNumber = document.getElementById('inputNumber');
+        const binaryResult = document.getElementById('binaryResult');
+        const decimalResult = document.getElementById('decimalResult');
+        const octalResult = document.getElementById('octalResult');
+        const hexadecimalResult = document.getElementById('hexadecimalResult');
+
+        const updateResults = () => {
+            const number = inputNumber.value.trim();
+
+            if (number === '') {
+                binaryResult.textContent = 'N/A';
+                decimalResult.textContent = 'N/A';
+                octalResult.textContent = 'N/A';
+                hexadecimalResult.textContent = 'N/A';
+                return;
+            }
+
+            let decimalNumber;
+
+            try {
+                decimalNumber = parseInt(number, 10);
+                if (isNaN(decimalNumber)) throw new Error();
+            } catch (error) {
+                binaryResult.textContent = 'Invalid Input';
+                decimalResult.textContent = 'Invalid Input';
+                octalResult.textContent = 'Invalid Input';
+                hexadecimalResult.textContent = 'Invalid Input';
+                return;
+            }
+
+            binaryResult.textContent = decimalNumber.toString(2);
+            decimalResult.textContent = decimalNumber.toString(10);
+            octalResult.textContent = decimalNumber.toString(8);
+            hexadecimalResult.textContent = decimalNumber.toString(16).toUpperCase();
+        };
+
+        inputNumber.addEventListener('input', updateResults);
+    </script>
+</body>
+</html>
